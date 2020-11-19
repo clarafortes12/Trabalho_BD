@@ -1,0 +1,2 @@
+USE hospital;
+SHOW TABLES;
