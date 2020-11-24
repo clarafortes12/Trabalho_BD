@@ -4,6 +4,14 @@
 
 use hospital;
 
+DROP PROCEDURE mostrar_enfermeiro;
+DROP PROCEDURE mostrar_medico;
+DROP PROCEDURE mostrar_convenio;
+DROP PROCEDURE mostrar_pacientes_medico;
+DROP PROCEDURE mostrar_exames_pacientes;
+DROP PROCEDURE mostrar_laboratorios_hospital;
+DROP PROCEDURE mostrar_exame_laboratorio;
+    
 DROP PROCEDURE adicionar_uf;
 DROP PROCEDURE adicionar_cidade;
 DROP PROCEDURE adicionar_bairro;

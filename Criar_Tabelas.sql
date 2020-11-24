@@ -41,7 +41,6 @@ CREATE TABLE IF NOT EXISTS `hospital`.`UF` (
   UNIQUE INDEX `idUF_UNIQUE` (`idUF` ASC) VISIBLE)
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `hospital`.`Cidade`
 -- -----------------------------------------------------
