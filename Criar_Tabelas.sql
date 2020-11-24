@@ -17,7 +17,7 @@ DROP DATABASE hospital;
 -- -----------------------------------------------------
 -- Schema hospital
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `hospital` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `hospital` DEFAULT CHARACTER SET utf8mb4 ;
 USE `hospital` ;
 
 -- -----------------------------------------------------
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Cidade` (
     FOREIGN KEY (`UF_idUF`)
     REFERENCES `hospital`.`UF` (`idUF`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Bairro` (
     FOREIGN KEY (`Cidade_idCidade`)
     REFERENCES `hospital`.`Cidade` (`idCidade`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -98,12 +98,12 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Endereco` (
     FOREIGN KEY (`Tipo_Endereco_idTipo_Endereco`)
     REFERENCES `hospital`.`Tipo_Endereco` (`idTipo_Endereco`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Endereco_Bairro1`
     FOREIGN KEY (`Bairro_idBairro`)
     REFERENCES `hospital`.`Bairro` (`idBairro`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Hospital` (
     FOREIGN KEY (`Endereco_idEndereco`)
     REFERENCES `hospital`.`Endereco` (`idEndereco`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -170,12 +170,12 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Telefone` (
     FOREIGN KEY (`Cidade_idCidade`)
     REFERENCES `hospital`.`Cidade` (`idCidade`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Telefone_Tipo_Telefone1`
     FOREIGN KEY (`Tipo_Telefone_idTipo_Telefone`)
     REFERENCES `hospital`.`Tipo_Telefone` (`idTipo_Telefone`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -195,12 +195,12 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Enfermaria` (
     FOREIGN KEY (`Ala_cod_Ala`)
     REFERENCES `hospital`.`Ala` (`cod_Ala`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Enfermaria_Telefone1`
     FOREIGN KEY (`Telefone_idTelefone`)
     REFERENCES `hospital`.`Telefone` (`idTelefone`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -248,22 +248,22 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Pessoa` (
     FOREIGN KEY (`Endereco_idEndereco`)
     REFERENCES `hospital`.`Endereco` (`idEndereco`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Pessoa_Estado_Civil1`
     FOREIGN KEY (`Estado_Civil_cod_EstadoCivil`)
     REFERENCES `hospital`.`Estado_Civil` (`cod_EstadoCivil`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Pessoa_Sexo1`
     FOREIGN KEY (`Sexo_cod_Sexo`)
     REFERENCES `hospital`.`Sexo` (`cod_Sexo`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Pessoa_Telefone1`
     FOREIGN KEY (`Telefone_idTelefone`)
     REFERENCES `hospital`.`Telefone` (`idTelefone`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Equipamento` (
     FOREIGN KEY (`Enfermaria_cod_Enfermaria`)
     REFERENCES `hospital`.`Enfermaria` (`cod_Enfermaria`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -315,7 +315,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Paciente` (
     FOREIGN KEY (`Plano_Saude_cod_PlanoSaude`)
     REFERENCES `hospital`.`Plano_Saude` (`cod_PlanoSaude`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Paciente_Pessoa1`
     FOREIGN KEY (`Pessoa_CPF`)
     REFERENCES `hospital`.`Pessoa` (`CPF`)
@@ -358,7 +358,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Medico` (
     FOREIGN KEY (`Funcionario_cod_Funcionario`)
     REFERENCES `hospital`.`Funcionario` (`cod_Funcionario`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -376,7 +376,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Enfermeiro` (
     FOREIGN KEY (`Funcionario_cod_Funcionario`)
     REFERENCES `hospital`.`Funcionario` (`cod_Funcionario`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -405,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Laboratorio` (
     FOREIGN KEY (`Endereco_idEndereco`)
     REFERENCES `hospital`.`Endereco` (`idEndereco`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -428,17 +428,17 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Convenio` (
     FOREIGN KEY (`Tipo_Convenio_cod_TipoConvenio`)
     REFERENCES `hospital`.`Tipo_Convenio` (`cod_TipoConvenio`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Convenio_Laboratorio1`
     FOREIGN KEY (`Laboratorio_cod_Laboratorio`)
     REFERENCES `hospital`.`Laboratorio` (`cod_Laboratorio`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Convenio_Hospital1`
     FOREIGN KEY (`Hospital_cnpj`)
     REFERENCES `hospital`.`Hospital` (`cnpj`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -465,12 +465,12 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Consulta` (
     FOREIGN KEY (`Paciente_cod_Paciente`)
     REFERENCES `hospital`.`Paciente` (`cod_Paciente`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Consulta_Enfermaria1`
     FOREIGN KEY (`Enfermaria_cod_Enfermaria`)
     REFERENCES `hospital`.`Enfermaria` (`cod_Enfermaria`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -493,7 +493,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Exame` (
     FOREIGN KEY (`Consulta_cod_Consulta`)
     REFERENCES `hospital`.`Consulta` (`cod_Consulta`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Exame_Laboratorio1`
     FOREIGN KEY (`Laboratorio_cod_Laboratorio`)
     REFERENCES `hospital`.`Laboratorio` (`cod_Laboratorio`)
@@ -527,7 +527,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Dependente` (
     FOREIGN KEY (`Funcionario_cod_Funcionario`)
     REFERENCES `hospital`.`Funcionario` (`cod_Funcionario`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -544,7 +544,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Hospital_has_Enfermeiro` (
     FOREIGN KEY (`Hospital_cnpj`)
     REFERENCES `hospital`.`Hospital` (`cnpj`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Hospital_has_Enfermeiro_Enfermeiro1`
     FOREIGN KEY (`Enfermeiro_COREN`)
     REFERENCES `hospital`.`Enfermeiro` (`COREN`)
@@ -589,7 +589,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Receita` (
     FOREIGN KEY (`Consulta_cod_Consulta`)
     REFERENCES `hospital`.`Consulta` (`cod_Consulta`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -599,7 +599,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `hospital`.`Remedio` (
   `idRemedio` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(45) NOT NULL,
-  `dias_uso` TIME NULL,
+  `dias_uso` INT NULL,
   `intervalo_uso` VARCHAR(45) NULL,
   `nome_remedio` VARCHAR(45) NOT NULL,
   `Receita_idReceita` INT NOT NULL,
@@ -610,7 +610,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Remedio` (
     FOREIGN KEY (`Receita_idReceita`)
     REFERENCES `hospital`.`Receita` (`idReceita`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 

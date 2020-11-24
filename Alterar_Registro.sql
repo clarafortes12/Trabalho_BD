@@ -4,89 +4,6 @@
 
 USE hospital;
 
-/*INSERT INTO uf (nome_UF) VALUES 
-('Santa Amaro');
-INSERT INTO cidade (nome_cidade, DDD, UF_idUF) VALUES 
-('Santa Maria', 66, 1);
-INSERT INTO bairro (nome_bairro, Cidade_idCidade) VALUES 
-('Santa Maria', 1);
-INSERT INTO tipo_endereco (descricao_tipoendereco) VALUES 
-('Residencial');
-INSERT INTO endereco (CEP, nome_rua, complemento, numero_casa, Tipo_Endereco_IdTipo_Endereco,Bairro_idBairro) VALUES 
-('70673530', 'rua','bloco x',1,1,1);
-INSERT INTO hospital (nome_hospital, cnpj, Endereco_idEndereco) VALUES 
-('Santa Maria', '12345678912345',1);
-INSERT INTO ala (descricao_Ala, Hospital_cnpj) VALUES 
-('ala_norte','12345678912345');
-INSERT INTO tipo_telefone (descricao_tipotelefone) VALUES 
-('Residencial');
-INSERT INTO tipo_convenio (descricao_tipoconvenio) VALUES 
-('convenio info');
-INSERT INTO sexo (descricao_sexo) VALUES 
-('feminino');
-INSERT INTO plano_saude (descricao_planosaude, nome_planosaude) VALUES 
-('plano completo', 'compania plano');
-INSERT INTO estado_civil (descricao_estadocivil) VALUES 
-('solteito');
-INSERT INTO telefone (numero_telefone, Cidade_idCidade, Tipo_Telefone_idTipo_Telefone) VALUES 
-('99999999999', 1,1);
-INSERT INTO enfermaria (descricao_enfermaria, Ala_cod_Ala, Telefone_idTelefone) VALUES 
-('dermato', 1,1);
-INSERT INTO laboratorio (descricao_laboratorio, Endereco_idEndereco) VALUES 
-('Santana', 1);
-INSERT INTO convenio (descricao_convenio, valor_convenio, Tipo_Convenio_cod_TipoConvenio, Laboratorio_cod_Laboratorio, Hospital_cnpj) VALUES 
-('111111111111', 1000, 1, 1,'12345678912345');
-INSERT INTO equipamento (descricao_equipamento, fabricante, Enfermaria_cod_Enfermaria) VALUES 
-('maquina', 'Joao', 1);
-INSERT INTO pessoa (CPF, nome_pessoa, data_nascimento, email, Endereco_idEndereco, Estado_Civil_cod_EstadoCivil, Sexo_cod_Sexo, Telefone_idTelefone) VALUES 
-('11111111111', 'Joao', '2018-12-03', 'joao@hotmail.com', 1, 1, 1, 1);
-INSERT INTO paciente (Plano_Saude_cod_PlanoSaude, peso_paciente, altura_paciente, Pessoa_CPF) VALUES 
-('1', 1.67, 68.99, '11111111111');
-INSERT INTO funcionario (salario, Pessoa_CPF) VALUES 
-(15000, '11111111111');
-INSERT INTO dependente (tipo_dependente,Pessoa_CPF,Funcionario_cod_Funcionario) VALUES 
-('mae', '11111111111', 1);
-INSERT INTO medico (CRM, titulacao, filiacao, Funcionario_cod_Funcionario) VALUES 
-('111111111', 'titulo', 'filia', 1);
-INSERT INTO enfermeiro (COREN, formacao_enfermeiro, Funcionario_cod_Funcionario) VALUES 
-('111111111', 'forma', 1);
-INSERT INTO consulta (motivo, Medico_CRM, Paciente_cod_Paciente, Enfermaria_cod_Enfermaria) VALUES 
-('diaria', '111111111', 1, 1);
-INSERT INTO receita (data_receita, Consulta_cod_Consulta) VALUES 
-('11/11/1111', 1);
-INSERT INTO exame (descricao_exame, restricao_exame, Consulta_cod_Consulta, Laboratorio_cod_Laboratorio, Enfermeiro_COREN) VALUES 
-('aa','aa', 1, 1, '111111111');
-INSERT INTO remedio (descricao, dias_uso, intervalo_uso, nome_remedio, Receita_idReceita) VALUES 
-('aa', 30, '1h', 'loratadina', 1);*/
-
-/*DROP PROCEDURE alterar_uf;
-DROP PROCEDURE alterar_cidade;
-DROP PROCEDURE alterar_bairro;
-DROP PROCEDURE alterar_tipo_endereco;
-DROP PROCEDURE alterar_endereco;
-DROP PROCEDURE alterar_hospital;
-DROP PROCEDURE alterar_ala;
-DROP PROCEDURE alterar_tipo_telefone;
-DROP PROCEDURE alterar_tipo_convenio;
-DROP PROCEDURE alterar_sexo;
-DROP PROCEDURE alterar_plano_saude;
-DROP PROCEDURE alterar_estado_civil;
-DROP PROCEDURE alterar_telefone;
-DROP PROCEDURE alterar_enfermaria;
-DROP PROCEDURE alterar_laboratorio;
-DROP PROCEDURE alterar_convenio;
-DROP PROCEDURE alterar_equipamento;
-DROP PROCEDURE alterar_pessoa;
-DROP PROCEDURE alterar_paciente;
-DROP PROCEDURE alterar_funcionario;
-DROP PROCEDURE alterar_dependente;
-DROP PROCEDURE alterar_medico;
-DROP PROCEDURE alterar_enfermeiro;
-DROP PROCEDURE alterar_consulta;
-DROP PROCEDURE alterar_receita;
-DROP PROCEDURE alterar_exame;
-DROP PROCEDURE alterar_remedio;*/
-
 CREATE PROCEDURE alterar_uf(IN id int, In nome varchar(45))
 	UPDATE uf SET nome_UF = 
 		CASE 
@@ -316,15 +233,19 @@ CREATE PROCEDURE alterar_equipamento(IN id int, In descricao varchar(45), In fab
         END
         WHERE cod_Equipamento = id;
 
-CREATE PROCEDURE alterar_pessoa(IN cpf_valor varchar(11), IN nome varchar(45), IN nascimento date,
-	IN email varchar(45), IN idEndereco int, IN idEstado int, IN idSexo int, IN idTelefone int)
-    UPDATE pessoa SET nome_pessoa = 
+CREATE PROCEDURE alterar_pessoa(IN cpf_valor varchar(11), IN cpfnovo varchar(11), IN nome varchar(45), IN nascimento date,
+	IN email_valor varchar(45), IN idEndereco int, IN idEstado int, IN idSexo int, IN idTelefone int)
+    UPDATE pessoa SET cpf = 
 		CASE 
+			WHEN cpfnovo <> '' THEN cpfnovo
+            ELSE cpf
+        END, 
+        nome_pessoa = CASE 
 			WHEN nome <> '' THEN nome
             ELSE nome_pessoa
         END, 
         data_nascimento = CASE 
-			WHEN nascimento <> '' THEN nascimento
+			WHEN nascimento <> '0000-00-00' THEN nascimento
             ELSE data_nascimento
         END,
         email = CASE 
@@ -437,7 +358,7 @@ CREATE PROCEDURE alterar_consulta(IN id int, IN motivo_novo varchar(45), IN CRM 
 
 CREATE PROCEDURE alterar_receita(IN id int, IN data_nova date, IN idConsulta int)
     UPDATE receita SET data_receita = CASE 
-			WHEN data_nova <> '' THEN data_nova
+			WHEN data_nova <> '0000-00-00' THEN data_nova
             ELSE data_receita
         END,
         Consulta_cod_Consulta = CASE 
@@ -469,7 +390,7 @@ CREATE PROCEDURE alterar_exame(IN id int, IN descricao varchar(45), IN restricao
         END
         WHERE cod_Exame = id;
 
-CREATE PROCEDURE alterar_remedio(IN id int, IN descricao_novo varchar(45), IN dias time , IN intervalo varchar(45), IN nome varchar(45), IN idReceita int)
+CREATE PROCEDURE alterar_remedio(IN id int, IN descricao_novo varchar(45), IN dias int , IN intervalo varchar(45), IN nome varchar(45), IN idReceita int)
     UPDATE remedio SET descricao = CASE 
 			WHEN descricao_novo <> '' THEN descricao_novo
             ELSE descricao

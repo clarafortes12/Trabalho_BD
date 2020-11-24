@@ -21,7 +21,7 @@ CREATE PROCEDURE excluir_endereco(IN id int)
 
 CREATE PROCEDURE excluir_hospital(IN cnpj_valor varchar(15))
 	DELETE FROM hospital WHERE cnpj = cnpj_valor;
-        
+
 CREATE PROCEDURE excluir_ala(IN ala_cod int)
 	DELETE FROM ala WHERE cod_Ala = ala_cod;
 
@@ -41,8 +41,11 @@ CREATE PROCEDURE excluir_estado_civil(IN id int)
 	DELETE FROM estado_civil WHERE cod_EstadoCivil = id;
 
 CREATE PROCEDURE excluir_telefone(IN id int)
-	DELETE FROM telefone WHERE cod_Enfermaria = id;
-
+	DELETE FROM telefone WHERE idTelefone = id;
+    
+CREATE PROCEDURE excluir_enfermaria(IN id int)
+	DELETE FROM enfermaria WHERE enfermaria = id;
+    
 CREATE PROCEDURE excluir_laboratorio(IN id int)
 	DELETE FROM laboratorio WHERE cod_Laboratorio = id;
 

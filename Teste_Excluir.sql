@@ -4,54 +4,80 @@
 
 USE hospital;
 
-CALL excluir_uf(1);
+CALL excluir_remedio(4);
+CALL excluir_remedio(5);
 
-/*CALL excluir_cidade(IN id int);
+CALL excluir_exame(4);
+CALL excluir_exame(5);
+
+CALL excluir_receita(4);
+CALL excluir_receita(5);
+
+CALL excluir_consulta(3);
+CALL excluir_consulta(2);
+
+CALL excluir_enfermeiro('00000FR');
+CALL excluir_enfermeiro('00000FL');
+
+CALL excluir_medico('00000FE');
+CALL excluir_medico('00000FH');
+
+CALL excluir_dependente(2);
+CALL excluir_dependente(3);
+
+CALL excluir_funcionario(2);
+CALL excluir_funcionario(5);
+
+CALL excluir_paciente(1);
+CALL excluir_paciente(3);
+
+CALL excluir_pessoa(2);
+CALL excluir_pessoa(4);
+
+CALL excluir_uf(3);
+CALL excluir_uf(4);
+
+CALL excluir_cidade(3);
+CALL excluir_cidade(4);
         
-CALL excluir_bairro(IN id int);
+CALL excluir_bairro(3);
+CALL excluir_bairro(4);
 
-CALL excluir_tipo_endereco(IN id int);
-    
-CALL excluir_endereco(IN id int);
+CALL excluir_tipo_endereco(2);
 
-CALL excluir_hospital(IN cnpj_valor varchar(15));
+CALL excluir_endereco(4);
+CALL excluir_endereco(5);
+
+CALL excluir_hospital('33333333333333');
+CALL excluir_hospital('44444444444444');
         
-CALL excluir_ala(IN ala_cod int);
+CALL excluir_ala(4);
+CALL excluir_ala(5);
 
-CALL excluir_tipo_telefone(IN id int);
+CALL excluir_tipo_telefone(2);
 
-CALL excluir_tipo_convenio(IN id int);
+CALL excluir_tipo_convenio(4);
+CALL excluir_tipo_convenio(5);
 
-CALL excluir_sexo (IN id int);
+CALL excluir_sexo (2);
 
-CALL excluir_plano_saude(IN id int);
+CALL excluir_plano_saude(4);
+CALL excluir_plano_saude(5);
 
-CALL excluir_estado_civil(IN id int);
+CALL excluir_estado_civil(4);
+CALL excluir_estado_civil(5);
 
-CALL excluir_telefone(IN id int);
+CALL excluir_telefone(2);
+CALL excluir_telefone(3);
 
-CALL excluir_laboratorio(IN id int);
+CALL excluir_enfermaria(4);
+CALL excluir_enfermaria(5);
 
-CALL excluir_convenio(IN id int);
+CALL excluir_laboratorio(2);
+CALL excluir_laboratorio(3);
 
-CALL excluir_equipamento(IN id int);
+CALL excluir_convenio(4);
+CALL excluir_convenio(5);
 
-CALL excluir_pessoa(IN cpf_valor varchar(11));
-        
-CALL excluir_paciente(IN idPaciente int);
-
-CALL excluir_funcionario(IN id int);
-
-CALL excluir_dependente(IN id int);
-
-CALL excluir_medico(IN CRM_valor varchar(45));
-
-CALL excluir_enfermeiro(IN COREN_valor varchar(45));
-
-CALL excluir_consulta(IN id int);
-
-CALL excluir_receita(IN id int);
-
-CALL excluir_exame(IN id int);
-
-CALL excluir_remedio(IN id int);*/
+CALL excluir_equipamento(4);
+CALL excluir_equipamento(5);

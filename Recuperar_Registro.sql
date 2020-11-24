@@ -2,57 +2,85 @@
 --     Lucas Gabriel de Oliveira Gurgel - 19/0121637 
 --     Maria Clara Oliveira Fortes - 19/0017503
 
-USE hospital;
+use hospital;
 
-CREATE PROCEDURE recuperar_ala()
-	SELECT * from ala;
-CREATE PROCEDURE recuperar_bairro()
-	SELECT * from bairro;
-CREATE PROCEDURE recuperar_cidade()
-	SELECT * from cidade;
-CREATE PROCEDURE recuperar_consulta()
-	SELECT * from consulta;
-CREATE PROCEDURE recuperar_convenio()
-	SELECT * from convenio;
-CREATE PROCEDURE recuperar_dependente()
-	SELECT * from dependente;
-CREATE PROCEDURE recuperar_endereco()
-	SELECT * from endereco;
-CREATE PROCEDURE recuperar_enfermaria()
-	SELECT * from enfermaria;
-CREATE PROCEDURE recuperar_enfermeiro()
-	SELECT * from enfermeiro;
-CREATE PROCEDURE recuperar_equipamento()
-	SELECT * from equipamento;
-CREATE PROCEDURE recuperar_estado_civil()
-	SELECT * from estado_civil;
-CREATE PROCEDURE recuperar_exame()
-	SELECT * from exame;
-CREATE PROCEDURE recuperar_funcionario()
-	SELECT * from funcionario;
-CREATE PROCEDURE recuperar_hospital()
-	SELECT * from hospital;
-CREATE PROCEDURE recuperar_laboratorio()
-	SELECT * from laboratorio;
-CREATE PROCEDURE recuperar_medico()
-	SELECT * from medico;
-CREATE PROCEDURE recuperar_paciente()
-	SELECT * from paciente;
-CREATE PROCEDURE recuperar_plano_saude()
-	SELECT * from plano_saude;
-CREATE PROCEDURE recuperar_receita()
-	SELECT * from receita;
-CREATE PROCEDURE recuperar_remedio()
-	SELECT * from remedio;
-CREATE PROCEDURE recuperar_sexo()
-	SELECT * from sexo;
-CREATE PROCEDURE recuperar_telefone()
-	SELECT * from telefone;
-CREATE PROCEDURE recuperar_tipo_convenio()
-	SELECT * from tipo_convenio;
-CREATE PROCEDURE recuperar_tipo_endereco()
-	SELECT * from tipo_endereco;
-CREATE PROCEDURE recuperar_tipo_telefone()
-	SELECT * from tipo_telefone;
-CREATE PROCEDURE recuperar_uf()
-	SELECT * from uf;
+create procedure recuperar_uf(in id int)
+	select * from UF where idUF=id;
+
+create procedure recuperar_cidade(in id int)
+	select * from Cidade where idCidade=id;
+
+create procedure recuperar_bairro(in id int)
+	select * from Bairro where idBairro=id;
+
+create procedure recuperar_tipo_endereco(in id int)
+	select * from Tipo_Endereco where idTipo_Endereco=id;
+
+create procedure recuperar_endereco(in id int)
+	select * from Endereco where idEndereco=id;
+
+create procedure recuperar_hospital(in cnpj varchar(15))
+	select * from Hospital where cnpj=cnpj;
+
+create procedure recuperar_ala(in id int)
+	select * from Ala where cod_Ala=id;
+
+create procedure recuperar_tipo_telefone(in id int)
+	select * from Tipo_Telefone where idTipo_Telefone=id;
+
+create procedure recuperar_tipo_convenio(in id int)
+	select * from Tipo_Convenio where cod_TipoConvenio=id;
+
+create procedure recuperar_sexo(in id int)
+	select * from Sexo where cod_Sexo=id;
+
+create procedure recuperar_plano_saude(in id int)
+	select * from Plano_Saude where cod_PlanoSaude=id;
+
+create procedure recuperar_estado_civil(in id int)
+	select * from Estado_Civil where cod_EstadoCivil=id;
+
+create procedure recuperar_telefone(in id int)
+	select * from Telefone where idTelefone=id;
+
+create procedure recuperar_enfermaria(in id int)
+	select * from Enfermaria where cod_Enfermaria=id;
+
+create procedure recuperar_laboratorio(in id int)
+	select * from Laboratorio where cod_Laboratorio=id;
+
+create procedure recuperar_convenio(in id int)
+	select * from Convenio where cod_Convenio=id;
+
+create procedure recuperar_equipamento(in id int)
+	select * from Equipamento where cod_Equipamento=id;
+
+create procedure recuperar_pessoa(in cpf varchar(12))
+	select * from Pessoa where CPF=cpf;
+
+create procedure recuperar_paciente(in id int)
+	select * from Paciente where cod_Paciente=id;
+
+create procedure recuperar_funcionario(in id int)
+	select * from Funcionario where cod_Funcionario=id;
+
+create procedure recuperar_dependente (in id int)
+	select * from Dependente where cod_Dependente=id;
+
+create procedure recuperar_medico(in crm varchar(45))
+	select * from Medico where CRM=crm;
+
+create procedure recuperar_enfermeiro(in coren varchar(45))
+	select * from Enfermeiro where COREN=coren;
+
+create procedure recuperar_consulta(in id int)
+	select * from Consulta where cod_Consulta=id;
+
+create procedure recuperar_receita(in id int)
+	select * from Receita where idReceita=id;
+
+create procedure recuperar_exame(in id int)
+	select * from Exame where cod_Exame=id;
+
+create procedure recuperar_remedio(in id int)
+	select * from Remedio where idRemedio=id;
