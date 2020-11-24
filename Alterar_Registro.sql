@@ -59,7 +59,7 @@ INSERT INTO exame (descricao_exame, restricao_exame, Consulta_cod_Consulta, Labo
 INSERT INTO remedio (descricao, dias_uso, intervalo_uso, nome_remedio, Receita_idReceita) VALUES 
 ('aa', 30, '1h', 'loratadina', 1);*/
 
-DROP PROCEDURE alterar_uf;
+/*DROP PROCEDURE alterar_uf;
 DROP PROCEDURE alterar_cidade;
 DROP PROCEDURE alterar_bairro;
 DROP PROCEDURE alterar_tipo_endereco;
@@ -85,7 +85,7 @@ DROP PROCEDURE alterar_enfermeiro;
 DROP PROCEDURE alterar_consulta;
 DROP PROCEDURE alterar_receita;
 DROP PROCEDURE alterar_exame;
-DROP PROCEDURE alterar_remedio;
+DROP PROCEDURE alterar_remedio;*/
 
 CREATE PROCEDURE alterar_uf(IN id int, In nome varchar(45))
 	UPDATE uf SET nome_UF = 
@@ -212,49 +212,282 @@ CREATE PROCEDURE alterar_sexo (IN id int, In descricao varchar(45))
         END
     WHERE cod_Sexo = id;
 
-CREATE PROCEDURE alterar_plano_saude(IN id int, In descricao varchar(45), In descricao varchar(45))
-	UPDATE ala SET descricao_Ala = 
+CREATE PROCEDURE alterar_plano_saude(IN id int, In descricao varchar(45), In nome varchar(45))
+	UPDATE plano_saude SET descricao_planosaude = 
 		CASE 
 			WHEN descricao <> '' THEN descricao
-            ELSE descricao_Ala
+            ELSE descricao_planosaude
+        END, 
+        nome_planosaude = CASE 
+			WHEN nome <> '' THEN nome
+            ELSE nome_planosaude
+        END
+        WHERE cod_PlanoSaude = id;
+
+CREATE PROCEDURE alterar_estado_civil(IN id int, In descricao varchar(45))
+	UPDATE estado_civil SET descricao_estadocivil = 
+		CASE 
+			WHEN descricao <> '' THEN descricao
+            ELSE descricao_estadocivil
+        END
+    WHERE cod_EstadoCivil = id;
+
+CREATE PROCEDURE alterar_telefone(IN id int, In numero varchar(11), In idCidade int, In idTipo int )
+	UPDATE telefone SET numero_telefone = 
+		CASE 
+			WHEN numero <> '' THEN numero
+            ELSE numero_telefone
+        END, 
+        Cidade_idCidade = CASE 
+			WHEN idCidade > 0 THEN idCidade
+            ELSE Cidade_idCidade
+        END, 
+        Tipo_Telefone_idTipo_Telefone = CASE 
+			WHEN idTipo > 0 THEN idTipo
+            ELSE Tipo_Telefone_idTipo_Telefone
+        END
+        WHERE idTelefone = id;
+        
+CREATE PROCEDURE alterar_enfermaria(IN id int, In descricao varchar(45), In codAla int, In idTelefone int )
+	UPDATE enfermaria SET descricao_enfermaria = 
+		CASE 
+			WHEN descricao <> '' THEN descricao
+            ELSE descricao_enfermaria
+        END, 
+		Ala_cod_Ala = CASE 
+			WHEN codAla > 0  THEN codAla
+            ELSE Ala_cod_Ala
+        END, 
+        Telefone_idTelefone = CASE 
+			WHEN idTelefone > 0 THEN idTelefone
+            ELSE Telefone_idTelefone
+        END
+        WHERE cod_Enfermaria = id;
+
+CREATE PROCEDURE alterar_laboratorio(IN id int, In descricao varchar(45), In idEndereco int )
+	UPDATE laboratorio SET descricao_laboratorio = 
+		CASE 
+			WHEN descricao <> '' THEN descricao
+            ELSE descricao_laboratorio
+        END, 
+        Endereco_idEndereco = CASE 
+			WHEN idEndereco > 0 THEN idEndereco
+            ELSE Endereco_idEndereco
+        END
+        WHERE cod_Laboratorio = id;
+
+CREATE PROCEDURE alterar_convenio(IN id int, In descricao varchar(45), In valor int, In idTipo int, In idLaboratorio int, In cnpj varchar(15))
+	UPDATE convenio SET descricao_convenio = 
+		CASE 
+			WHEN descricao <> '' THEN descricao
+            ELSE descricao_convenio
+        END, 
+        valor_convenio = CASE 
+			WHEN valor > 0 THEN valor
+            ELSE valor_convenio
+        END, 
+        Tipo_Convenio_cod_TipoConvenio = CASE 
+			WHEN idTipo > 0 THEN idTipo
+            ELSE Tipo_Convenio_cod_TipoConvenio
+        END, 
+        Laboratorio_cod_Laboratorio = CASE 
+			WHEN idLaboratorio > 0 THEN idLaboratorio
+            ELSE Laboratorio_cod_Laboratorio
         END, 
         Hospital_cnpj = CASE 
-			WHEN cnpj > 0 THEN cnpj
+			WHEN cnpj <> '' THEN cnpj
             ELSE Hospital_cnpj
         END
-        WHERE cod_Ala = ala_cod;
+        WHERE cod_Convenio = id;
 
-CREATE PROCEDURE alterar_estado_civil()
-	SELECT * from estado_civil;
-CREATE PROCEDURE alterar_telefone()
-	SELECT * from telefone;
-CREATE PROCEDURE alterar_enfermaria()
-	SELECT * from enfermaria;
-CREATE PROCEDURE alterar_laboratorio()
-	SELECT * from laboratorio;
-CREATE PROCEDURE alterar_convenio()
-	SELECT * from convenio;
-CREATE PROCEDURE alterar_equipamento()
-	SELECT * from equipamento;
-CREATE PROCEDURE alterar_pessoa()
-	SELECT * from pessoa;
-CREATE PROCEDURE alterar_paciente()
-	SELECT * from paciente;
-CREATE PROCEDURE alterar_funcionario()
-	SELECT * from paciente;
-CREATE PROCEDURE alterar_dependente()
-	SELECT * from dependente;
-CREATE PROCEDURE alterar_medico()
-	SELECT * from medico;
-CREATE PROCEDURE alterar_enfermeiro()
-	SELECT * from enfermeiro;
-CREATE PROCEDURE alterar_consulta()
-	SELECT * from consulta;
-CREATE PROCEDURE alterar_receita()
-	SELECT * from receita;
-CREATE PROCEDURE alterar_exame()
-	SELECT * from exame;
-CREATE PROCEDURE alterar_remedio()
-	SELECT * from remedio;
+CREATE PROCEDURE alterar_equipamento(IN id int, In descricao varchar(45), In fabricante_nome varchar(45),In idEnfermaria int)
+	UPDATE equipamento SET descricao_equipamento = 
+		CASE 
+			WHEN descricao <> '' THEN descricao
+            ELSE descricao_equipamento
+        END, 
+        fabricante = CASE 
+			WHEN fabricante_nome <> '' THEN fabricante_nome
+            ELSE fabricante
+        END, 
+        Enfermaria_cod_Enfermaria = CASE 
+			WHEN idEnfermaria > 0 THEN idEnfermaria
+            ELSE Enfermaria_cod_Enfermaria
+        END
+        WHERE cod_Equipamento = id;
 
-    
+CREATE PROCEDURE alterar_pessoa(IN cpf_valor varchar(11), IN nome varchar(45), IN nascimento date,
+	IN email varchar(45), IN idEndereco int, IN idEstado int, IN idSexo int, IN idTelefone int)
+    UPDATE pessoa SET nome_pessoa = 
+		CASE 
+			WHEN nome <> '' THEN nome
+            ELSE nome_pessoa
+        END, 
+        data_nascimento = CASE 
+			WHEN nascimento <> '' THEN nascimento
+            ELSE data_nascimento
+        END,
+        email = CASE 
+			WHEN email_valor <> '' THEN email_valor
+            ELSE email
+        END, 
+        Endereco_idEndereco = CASE 
+			WHEN idEndereco > 0 THEN idEndereco
+            ELSE Endereco_idEndereco
+        END, 
+        Estado_Civil_cod_EstadoCivil= CASE 
+			WHEN idEstado > 0 THEN idEstado
+            ELSE Estado_Civil_cod_EstadoCivil
+        END, 
+        Sexo_cod_Sexo = CASE 
+			WHEN idSexo > 0 THEN idSexo
+            ELSE Sexo_cod_Sexo
+        END, 
+        Telefone_idTelefone = CASE 
+			WHEN idTelefone > 0 THEN idTelefone
+            ELSE Telefone_idTelefone
+        END
+        WHERE cpf = cpf_valor;
+        
+CREATE PROCEDURE alterar_paciente(IN idPaciente int, IN idPlano int, IN peso float, IN altura float)
+    UPDATE paciente SET Plano_Saude_cod_PlanoSaude = CASE 
+			WHEN idPlano > 0 THEN idPlano
+            ELSE Plano_Saude_cod_PlanoSaude
+        END, 
+        peso_paciente = CASE 
+			WHEN peso > 0 THEN peso
+            ELSE peso_paciente
+        END, 
+        altura_paciente = CASE 
+			WHEN altura > 0 THEN altura
+            ELSE altura_paciente
+        END
+        WHERE cod_Paciente = idPaciente;
+
+CREATE PROCEDURE alterar_funcionario(IN id int, IN salario_novo float)
+    UPDATE funcionario SET salario = CASE 
+			WHEN salario_novo > 0 THEN salario_novo
+            ELSE salario
+        END
+        WHERE cod_Funcionario = id;
+
+CREATE PROCEDURE alterar_dependente(IN id int, IN dependencia varchar(45), IN idFuncionario int)
+    UPDATE funcionario SET tipo_dependente = CASE 
+			WHEN dependencia <> '' THEN dependencia
+            ELSE tipo_dependente
+        END, 
+        Funcionario_cod_Funcionario = CASE 
+			WHEN idFuncionario > 0 THEN idFuncionario
+            ELSE Funcionario_cod_Funcionario
+        END
+        WHERE cod_Dependente = id;
+
+CREATE PROCEDURE alterar_medico(IN CRM_valor varchar(45), IN CRM_novo varchar(45), IN titulo varchar(45), IN filia varchar(45), IN idFuncionario int)
+    UPDATE medico SET CRM = CASE 
+			WHEN CRM_novo <> '' THEN CRM_novo
+            ELSE CRM
+        END,
+        titulacao = CASE 
+			WHEN titulo <> '' THEN titulo
+            ELSE titulacao
+        END, 
+        filiacao = CASE 
+			WHEN filia <> '' THEN filia
+            ELSE filiacao
+        END, 
+        Funcionario_cod_Funcionario = CASE 
+			WHEN idFuncionario > 0 THEN idFuncionario
+            ELSE Funcionario_cod_Funcionario
+        END
+        WHERE CRM = CRM_valor;
+
+CREATE PROCEDURE alterar_enfermeiro(IN COREN_valor varchar(45), IN COREN_novo varchar(45), IN formacao varchar(45), IN idFuncionario int)
+    UPDATE enfermeiro SET COREN = CASE 
+			WHEN COREN_novo <> '' THEN COREN_novo
+            ELSE COREN
+        END,
+        formacao_enfermeiro = CASE 
+			WHEN formacao <> '' THEN formacao
+            ELSE formacao_enfermeiro
+        END, 
+        Funcionario_cod_Funcionario = CASE 
+			WHEN idFuncionario > 0 THEN idFuncionario
+            ELSE Funcionario_cod_Funcionario
+        END
+        WHERE COREN = COREN_valor;
+
+CREATE PROCEDURE alterar_consulta(IN id int, IN motivo_novo varchar(45), IN CRM varchar(45), IN idPaciente int , IN idEnfermaria int)
+    UPDATE consulta SET motivo = CASE 
+			WHEN motivo_novo <> '' THEN motivo_novo
+            ELSE motivo
+        END,
+        Medico_CRM = CASE 
+			WHEN CRM <> '' THEN CRM
+            ELSE Medico_CRM
+        END, 
+        Paciente_cod_Paciente = CASE 
+			WHEN idPaciente > 0 THEN idPaciente
+            ELSE Paciente_cod_Paciente
+        END, 
+        Enfermaria_cod_Enfermaria = CASE 
+			WHEN idEnfermaria > 0 THEN idEnfermaria
+            ELSE Enfermaria_cod_Enfermaria
+        END
+        WHERE cod_Consulta = id;
+
+CREATE PROCEDURE alterar_receita(IN id int, IN data_nova date, IN idConsulta int)
+    UPDATE receita SET data_receita = CASE 
+			WHEN data_nova <> '' THEN data_nova
+            ELSE data_receita
+        END,
+        Consulta_cod_Consulta = CASE 
+			WHEN idConsulta > 0 THEN idConsulta
+            ELSE Consulta_cod_Consulta
+        END
+        WHERE idReceita = id;
+
+CREATE PROCEDURE alterar_exame(IN id int, IN descricao varchar(45), IN restricao varchar(45), IN COREN varchar(45) , IN idConsulta int, IN idLaboratorio int)
+    UPDATE exame SET descricao_exame = CASE 
+			WHEN descricao <> '' THEN descricao
+            ELSE descricao_exame
+        END,
+        restricao_exame = CASE 
+			WHEN restricao <> '' THEN restricao
+            ELSE restricao_exame
+        END,
+        Enfermeiro_COREN = CASE 
+			WHEN COREN <> '' THEN COREN
+            ELSE Enfermeiro_COREN
+        END,
+        Consulta_cod_Consulta = CASE 
+			WHEN idConsulta > 0 THEN idConsulta
+            ELSE Consulta_cod_Consulta
+        END,
+        Laboratorio_cod_Laboratorio = CASE 
+			WHEN idLaboratorio > 0 THEN idLaboratorio
+            ELSE Laboratorio_cod_Laboratorio
+        END
+        WHERE cod_Exame = id;
+
+CREATE PROCEDURE alterar_remedio(IN id int, IN descricao_novo varchar(45), IN dias time , IN intervalo varchar(45), IN nome varchar(45), IN idReceita int)
+    UPDATE remedio SET descricao = CASE 
+			WHEN descricao_novo <> '' THEN descricao_novo
+            ELSE descricao
+        END,
+       dias_uso = CASE 
+			WHEN dias > 0 THEN dias
+            ELSE dias_uso
+        END,
+        intervalo_uso = CASE 
+			WHEN intervalo <> '' THEN intervalo
+            ELSE intervalo_uso
+        END,
+        nome_remedio = CASE 
+			WHEN nome <> '' THEN nome
+            ELSE nome_remedio
+        END,
+        Receita_idReceita = CASE 
+			WHEN idReceita > 0 THEN idReceita
+            ELSE Receita_idReceita
+        END
+        WHERE idRemedio = id;
