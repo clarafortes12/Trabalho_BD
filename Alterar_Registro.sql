@@ -372,7 +372,7 @@ CREATE PROCEDURE alterar_funcionario(IN id int, IN salario_novo float)
         WHERE cod_Funcionario = id;
 
 CREATE PROCEDURE alterar_dependente(IN id int, IN dependencia varchar(45), IN idFuncionario int)
-    UPDATE funcionario SET tipo_dependente = CASE 
+    UPDATE dependente SET tipo_dependente = CASE 
 			WHEN dependencia <> '' THEN dependencia
             ELSE tipo_dependente
         END, 

@@ -4,55 +4,80 @@
 
 USE hospital;
 
-CREATE PROCEDURE excluir_ala()
-	SELECT * from ala;
-CREATE PROCEDURE excluir_bairro()
-	SELECT * from bairro;
-CREATE PROCEDURE excluir_cidade()
-	SELECT * from cidade;
-CREATE PROCEDURE excluir_consulta()
-	SELECT * from consulta;
-CREATE PROCEDURE excluir_convenio()
-	SELECT * from convenio;
-CREATE PROCEDURE excluir_dependente()
-	SELECT * from dependente;
-CREATE PROCEDURE excluir_endereco()
-	SELECT * from endereco;
-CREATE PROCEDURE excluir_enfermaria()
-	SELECT * from enfermaria;
-CREATE PROCEDURE excluir_enfermeiro()
-	SELECT * from enfermeiro;
-CREATE PROCEDURE excluir_equipamento()
-	SELECT * from equipamento;
-CREATE PROCEDURE excluir_estado_civil()
-	SELECT * from estado_civil;
-CREATE PROCEDURE excluir_exame()
-	SELECT * from exame;
-CREATE PROCEDURE excluir_funcionario()
-	SELECT * from funcionario;
-CREATE PROCEDURE excluir_hospital()
-	SELECT * from hospital;
-CREATE PROCEDURE excluir_laboratorio()
-	SELECT * from laboratorio;
-CREATE PROCEDURE excluir_medico()
-	SELECT * from medico;
-CREATE PROCEDURE excluir_paciente()
-	SELECT * from paciente;
-CREATE PROCEDURE excluir_plano_saude()
-	SELECT * from plano_saude;
-CREATE PROCEDURE excluir_receita()
-	SELECT * from receita;
-CREATE PROCEDURE excluir_remedio()
-	SELECT * from remedio;
-CREATE PROCEDURE excluir_sexo()
-	SELECT * from sexo;
-CREATE PROCEDURE excluir_telefone()
-	SELECT * from telefone;
-CREATE PROCEDURE excluir_tipo_convenio()
-	SELECT * from tipo_convenio;
-CREATE PROCEDURE excluir_tipo_endereco()
-	SELECT * from tipo_endereco;
-CREATE PROCEDURE excluir_tipo_telefone()
-	SELECT * from tipo_telefone;
-CREATE PROCEDURE excluir_uf()
-	SELECT * from uf;
+CREATE PROCEDURE excluir_uf(IN id int)
+	DELETE FROM uf WHERE idUF = id;
+
+CREATE PROCEDURE excluir_cidade(IN id int)
+	DELETE FROM cidade WHERE idCidade = id;
+        
+CREATE PROCEDURE excluir_bairro(IN id int)
+	DELETE FROM bairro WHERE idBairro = id;
+
+CREATE PROCEDURE excluir_tipo_endereco(IN id int)
+	DELETE FROM tipo_endereco WHERE idTipo_Endereco = id;
+    
+CREATE PROCEDURE excluir_endereco(IN id int)
+	DELETE FROM endereco WHERE idEndereco = id;
+
+CREATE PROCEDURE excluir_hospital(IN cnpj_valor varchar(15))
+	DELETE FROM hospital WHERE cnpj = cnpj_valor;
+        
+CREATE PROCEDURE excluir_ala(IN ala_cod int)
+	DELETE FROM ala WHERE cod_Ala = ala_cod;
+
+CREATE PROCEDURE excluir_tipo_telefone(IN id int)
+	DELETE FROM tipo_telefone WHERE idTipo_Telefone = id;
+
+CREATE PROCEDURE excluir_tipo_convenio(IN id int)
+	DELETE FROM tipo_convenio WHERE cod_TipoConvenio = id;
+
+CREATE PROCEDURE excluir_sexo (IN id int)
+	DELETE FROM sexo WHERE cod_Sexo = id;
+
+CREATE PROCEDURE excluir_plano_saude(IN id int)
+	DELETE FROM plano_saude WHERE cod_PlanoSaude = id;
+
+CREATE PROCEDURE excluir_estado_civil(IN id int)
+	DELETE FROM estado_civil WHERE cod_EstadoCivil = id;
+
+CREATE PROCEDURE excluir_telefone(IN id int)
+	DELETE FROM telefone WHERE cod_Enfermaria = id;
+
+CREATE PROCEDURE excluir_laboratorio(IN id int)
+	DELETE FROM laboratorio WHERE cod_Laboratorio = id;
+
+CREATE PROCEDURE excluir_convenio(IN id int)
+	DELETE FROM convenio WHERE cod_Convenio = id;
+
+CREATE PROCEDURE excluir_equipamento(IN id int)
+	DELETE FROM equipamento WHERE cod_Equipamento = id;
+
+CREATE PROCEDURE excluir_pessoa(IN cpf_valor varchar(11))
+    DELETE FROM pessoa WHERE cpf = cpf_valor;
+        
+CREATE PROCEDURE excluir_paciente(IN idPaciente int)
+    DELETE FROM paciente WHERE cod_Paciente = idPaciente;
+
+CREATE PROCEDURE excluir_funcionario(IN id int)
+    DELETE FROM funcionario WHERE cod_Funcionario = id;
+
+CREATE PROCEDURE excluir_dependente(IN id int)
+    DELETE FROM dependente WHERE cod_Dependente = id;
+
+CREATE PROCEDURE excluir_medico(IN CRM_valor varchar(45))
+    DELETE FROM medico WHERE CRM = CRM_valor;
+
+CREATE PROCEDURE excluir_enfermeiro(IN COREN_valor varchar(45))
+    DELETE FROM enfermeiro WHERE COREN = COREN_valor;
+
+CREATE PROCEDURE excluir_consulta(IN id int)
+    DELETE FROM consulta WHERE cod_Consulta = id;
+
+CREATE PROCEDURE excluir_receita(IN id int)
+    DELETE FROM receita WHERE idReceita = id;
+
+CREATE PROCEDURE excluir_exame(IN id int)
+	DELETE FROM exame WHERE cod_Exame = id;
+
+CREATE PROCEDURE excluir_remedio(IN id int)
+    DELETE FROM remedio WHERE idRemedio = id;
